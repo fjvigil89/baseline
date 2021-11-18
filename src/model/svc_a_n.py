@@ -83,8 +83,8 @@ while nfold > 1:
                 data_processing['Kerner'].append("poly")
                 data_processing['value_C'].append(c)
                 data_processing['value_degree'].append(deg)
-                data_processing['Score'].append(score)
-                data_processing['UAR'].append(uar)                
+                data_processing['Score'].append(score*100)
+                data_processing['UAR'].append(uar*100)                
       
       
       df = pd.DataFrame(data_processing, columns = ['list','model','type_list', 'Kerner' , 'value_C', 'value_degree', 'Score','UAR'])

@@ -1,5 +1,34 @@
 # Tratamiento de datos
 # ==============================================================================
+import numpy as np
+import pandas as pd
+arreglo = [[[79.84862132085888, 65.26861725310167, 62.04491966179504, 52.386901821774124], [81.44812156782986, 70.43612168405149, 66.86811750007264, 54.56460470116512]], [[82.18612894790365, 60.913211494319675, 57.71421100037772, 51.41499840195253], [82.3706307929221, 69.64872010924834, 60.93790859168434, 52.98980155155883]]] 
+
+matriz = np.array(arreglo)
+
+print("all",matriz)
+print("len",len(matriz))
+print("filas",len(matriz[0]))
+print("Columnas",len(matriz[0][0]))
+print("Matriz0",matriz[0][1,0])
+print("Matriz1",matriz[1][1,0])
+
+df = pd.DataFrame([[1, 2], [4, 5], [7, 8]],
+     index=['cobra', 'viper', 'sidewinder'],
+     columns=['max_speed', 'shield'])
+
+df =df.assign(UAR="")
+
+resul=[]
+media=[]
+std=[]
+for i in range(len(matriz[0])):    
+    for j in range(len(matriz[0][0])):                                
+        media.append("para c="+str(i)+" y para degree="+str(j)+" == "+str(np.mean([matriz[0][i, j], matriz[1][i, j] ])))
+        std.append("para c="+str(i)+" y para degree="+str(j)+" == "+str(np.std([matriz[0][i, j], matriz[1][i, j] ])))
+
+print(media)
+
 
 from sklearn.preprocessing import StandardScaler
 import warnings
