@@ -21,14 +21,14 @@ for k in $Ker; do
                 ​
                     echo "
                         executable =  /extra/scratch03/fjvigil/baseline/src/model/run_cluster.py
-                        arguments = \"k c d\"
+                        arguments = \"${k} ${c} ${d}\"
                         output = ${TASK_FILE}.log
                         error = ${TASK_FILE}.err
                         log = ${TASK_FILE}.clog
                         queue
                     " > $TASK_FILE
                 ​
-                    condor_submit.sh -c 1 -r 3900 --config $TASK_FILE
+                    # condor_submit.sh -c 1 -r 3900 --config $TASK_FILE
                 done    
                 ;;
             "rbf")
@@ -39,14 +39,14 @@ for k in $Ker; do
                 ​
                     echo "
                         executable =  /extra/scratch03/fjvigil/baseline/src/model/cluster.py
-                        arguments = \"k c g\"
+                        arguments = \"${k} ${c} ${d}\"
                         output = ${TASK_FILE}.log
                         error = ${TASK_FILE}.err
                         log = ${TASK_FILE}.clog
                         queue
                     " > $TASK_FILE
                 ​
-                    condor_submit.sh -c 1 -r 3900 --config $TASK_FILE
+                    # condor_submit.sh -c 1 -r 3900 --config $TASK_FILE
                 done    
                 ;;            
         esac 
