@@ -2,8 +2,7 @@
 # ==============================================================================
 from sklearn.preprocessing import StandardScaler
 import warnings
-import json
-import opensmile
+from openpyxl import Workbook
 import pandas as pd
 import numpy as np
 
@@ -13,7 +12,7 @@ import numpy as np
 from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_validate,cross_val_score, KFold
-from sklearn.metrics import balanced_accuracy_score 
+from sklearn.metrics import balanced_accuracy_score
 # ==============================================================================
 warnings.filterwarnings('ignore')
 
@@ -57,40 +56,42 @@ def split_data(path):
     X = z_standard(X)
     return X, y
 
-nfold = 5
-while nfold > 1:      
-      X_train, y_train = split_data("data/csv/train_aiu_both_meta_data_fold"+str(nfold)+".csv")
-      X_test, y_test = split_data("data/csv/test_aiu_both_meta_data_fold"+str(nfold)+".csv")
-      
-      # Creación del modelo SVM
-      # ==============================================================================      
-      model=[]
-      data_processing = {'list':[],'model':[],'type_list':[], 'Kerner':[] , 'value_C':[], 'value_degree':[], 'Score':[], 'UAR':[]}      
-      modelo = SVC(kernel='poly')
-      
-      scores_std = list()
-      length=range(1,64, 4) 
-      for c in length:            
-            for deg in range(1,4):                  
-                modelo.C = c
-                modelo.degree = deg                
-                modelo.fit(X_train, y_train)
-                score= modelo.score(X_test, y_test) 
-                y_pred = modelo.predict(X_test)
-                uar = balanced_accuracy_score(y_test, y_pred)             
-                
-                data_processing['list'].append("aiu_fold"+str(nfold)+"")
-                data_processing['model'].append("SVC")
-                data_processing['type_list'].append("Phrase")
-                data_processing['Kerner'].append("poly")
-                data_processing['value_C'].append(c)
-                data_processing['value_degree'].append(deg)
-                data_processing['Score'].append(score)
-                data_processing['UAR'].append(uar)                
-      
-      
-      df = pd.DataFrame(data_processing, columns = ['list','model','type_list', 'Kerner' , 'value_C', 'value_degree', 'Score','UAR'])
-      df.to_excel('aiu.xlsx', sheet_name='svc_aiu', index=False)
-      nfold -= 1 
 
+data_processing = {'list':[],'model':[],'type_list':[], 'Kerner':[] , 'value_C':[], 'value_degree':[], 'Score':[], 'UAR':[]}      
+modelo = SVC(kernel='poly')
+
+nfold = 1
+while nfold <= 5:      
+    X_train, y_train = split_data("data/csv/train_aiu_both_meta_data_fold"+str(nfold)+".csv")
+    X_test, y_test = split_data("data/csv/test_aiu_both_meta_data_fold"+str(nfold)+".csv")
+    
+    # Creación del modelo SVM
+    # ==============================================================================      
+        
+    length=range(1,64, 4)       
+    #length=range(1,2)
+    for c in length:            
+        for deg in range(1,5):                  
+            modelo.C = c
+            modelo.degree = deg                
+            modelo.fit(X_train, y_train)
+            score= modelo.score(X_test, y_test) 
+            y_pred = modelo.predict(X_test)
+            uar = balanced_accuracy_score(y_test, y_pred)             
+            
+            data_processing['list'].append("aiu_fold"+str(nfold)+"")
+            data_processing['model'].append("SVC")
+            data_processing['type_list'].append("aiu")
+            data_processing['Kerner'].append("poly")
+            data_processing['value_C'].append(c)
+            data_processing['value_degree'].append(deg)
+            data_processing['Score'].append(score*100)
+            data_processing['UAR'].append(uar*100)
+            
+            print(data_processing['UAR'])           
+      
+    nfold += 1 
+      
+df = pd.DataFrame(data_processing, columns = ['list','model','type_list', 'Kerner' , 'value_C', 'value_degree', 'Score','UAR'])
+df.to_excel('data/xls/aiu.xlsx', sheet_name='svc_aiu', index=False)      
 # print("Load the data model")

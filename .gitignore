@@ -1,0 +1,5 @@
+/data/audio/*
+/data/csv/*
+**/log/*
+/data/lst/log/*
+.vscode

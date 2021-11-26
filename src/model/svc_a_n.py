@@ -67,10 +67,9 @@ while nfold > 1:
       data_processing = {'list':[],'model':[],'type_list':[], 'Kerner':[] , 'value_C':[], 'value_degree':[], 'Score':[], 'UAR':[]}      
       modelo = SVC(kernel='poly')
       
-      scores_std = list()
       length=range(1,64, 4) 
       for c in length:            
-            for deg in range(1,4):                  
+            for deg in range(1,5):                  
                 modelo.C = c
                 modelo.degree = deg                
                 modelo.fit(X_train, y_train)
@@ -84,12 +83,12 @@ while nfold > 1:
                 data_processing['Kerner'].append("poly")
                 data_processing['value_C'].append(c)
                 data_processing['value_degree'].append(deg)
-                data_processing['Score'].append(score)
-                data_processing['UAR'].append(uar)                
+                data_processing['Score'].append(score*100)
+                data_processing['UAR'].append(uar*100)                
       
       
       df = pd.DataFrame(data_processing, columns = ['list','model','type_list', 'Kerner' , 'value_C', 'value_degree', 'Score','UAR'])
-      df.to_excel('svm_a_n.xlsx', sheet_name='svc_a_n', index=False)
+      df.to_excel('data/xls/svm_a_n.xlsx', sheet_name='svc_a_n', index=False)
       nfold -= 1 
 
 # print("Load the data model")

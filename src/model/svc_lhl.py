@@ -70,7 +70,7 @@ while nfold > 1:
       scores_std = list()
       length=range(1,64, 4) 
       for c in length:            
-            for deg in range(1,4):                  
+            for deg in range(1,5):                  
                 modelo.C = c
                 modelo.degree = deg                
                 modelo.fit(X_train, y_train)
@@ -89,7 +89,7 @@ while nfold > 1:
       
       
       df = pd.DataFrame(data_processing, columns = ['list','model','type_list', 'Kerner' , 'value_C', 'value_degree', 'Score','UAR'])
-      df.to_excel('lhl.xlsx', sheet_name='svc_lhl', index=False)
+      df.to_excel('data/xls/lhl.xlsx', sheet_name='svc_lhl', index=False)
       nfold -= 1 
 
 # print("Load the data model")
