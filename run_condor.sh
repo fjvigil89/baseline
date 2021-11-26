@@ -17,8 +17,7 @@ for k in $Ker; do
                 for d in $D; do
                     LOGDIR=log
                     mkdir -p $LOGDIR
-                    TASK_FILE=$LOGDIR/task_${k}_${c}_${d}
-                ​
+                    TASK_FILE=$LOGDIR/task_${k}_${c}_${d}                ​
                     echo "
                         executable =  /extra/scratch03/fjvigil/baseline/src/model/run_cluster.py
                         arguments = \"${k} ${c} ${d}\"
@@ -26,8 +25,7 @@ for k in $Ker; do
                         error = ${TASK_FILE}.err
                         log = ${TASK_FILE}.clog
                         queue
-                    " > $TASK_FILE
-                ​
+                    " > $TASK_FILE                ​
                     # condor_submit.sh -c 1 -r 3900 --config $TASK_FILE
                 done    
                 ;;
@@ -35,8 +33,7 @@ for k in $Ker; do
                 for g in $G; do
                     LOGDIR=log
                     mkdir -p $LOGDIR
-                    TASK_FILE=$LOGDIR/task_${k}_${c}_${g}
-                ​
+                    TASK_FILE=$LOGDIR/task_${k}_${c}_${g}                ​
                     echo "
                         executable =  /extra/scratch03/fjvigil/baseline/src/model/cluster.py
                         arguments = \"${k} ${c} ${d}\"
@@ -44,8 +41,7 @@ for k in $Ker; do
                         error = ${TASK_FILE}.err
                         log = ${TASK_FILE}.clog
                         queue
-                    " > $TASK_FILE
-                ​
+                    " > $TASK_FILE                ​
                     # condor_submit.sh -c 1 -r 3900 --config $TASK_FILE
                 done    
                 ;;            
