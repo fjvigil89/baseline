@@ -18,11 +18,12 @@ smile = opensmile.Smile(
     logfile='smile.log',
 )
 
-list=['phrase','a_n','aiu_n','lhl','aiu']
+# list=['phrase','a_n','aiu_n','lhl','aiu']
+list=['phrase','a_n','aiu_nlh']
 nfold = 5
 while nfold > 0:      
       for x in list: 
-          print("Procesing data/lst/train_"+x+"_both_meta_data_fold"+str(nfold)+".json")       
+          print("Procesing data/lst/train_"+x+"_both_meta_data_fold"+str(nfold)+".json")                                        
           path_json = "data/lst/train_"+x+"_both_meta_data_fold"+str(nfold)+".json"
           with open(path_json,'r') as f:
             data = json.loads(f.read())
